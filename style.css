@@ -2570,4 +2570,47 @@ input, textarea {
 /* Smooth hover for all interactive elements */
 a, button, .category-card, .restaurant-card, .menu-card, .stat-card, .offer-card, .contact-card, .gallery-item, .faq-item {
     -webkit-tap-highlight-color: transparent;
+}/* Existing CSS */
+
+body{
+  margin:0;
+}
+
+/* Aur jo bhi CSS hai */
+
+/* Sabse neeche ye add karo */
+
+@media screen and (max-width: 768px){
+
+  .navbar{
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .nav-links{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero{
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-image{
+    width: 100%;
+  }
+
+  .hero-content{
+    width: 100%;
+  }
+
+  .search-box{
+    width: 100%;
+  }
+
+  .buttons{
+    width: 100%;
+  }
 }
