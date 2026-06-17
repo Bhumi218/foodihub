@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodieHub - Delicious Food Delivered To Your Doorstep</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ============ PRELOADER ============ -->
+    <div id="preloader">
+        <div class="loader">
+            <div class="loader-icon"><i class="fas fa-utensils"></i></div>
+            <div class="loader-bar"><span></span></div>
+            <p>FoodieHub</p>
+        </div>
+    </div>
+
+    <!-- ============ BACK TO TOP ============ -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ============ NAVIGATION ============ -->
+    <header class="header" id="header">
+        <nav class="navbar container">
+            <a href="#" class="nav-logo">
+                <i class="fas fa-utensils"></i>
+                <span>Foodie<span class="highlight">Hub</span></span>
+            </a>
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#restaurants" class="nav-link">Restaurants</a></li>
+                    <li><a href="#menu" class="nav-link">Menu</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" id="loginBtn">Log In</button>
+                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                    <button class="btn btn-seller" id="sellerBtn" onclick="toggleSellerDropdown()" style="background:#8B5CF6;color:white;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:0.9rem;font-weight:600;margin-left:6px;">
+                        <i class="fas fa-store-alt"></i> Sell
+                    </button>
+                </div>
+                <div id="sellerDropdown" class="seller-dropdown" style="display:none;position:absolute;top:100%;right:0;background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.15);padding:12px;min-width:220px;z-index:1000;margin-top:8px;">
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <button class="btn btn-primary" onclick="openSellerRegister()" style="padding:10px 16px;font-size:0.9rem;">
+                            <i class="fas fa-user-plus"></i> Register as Seller
+                        </button>
+                        <button class="btn btn-outline" onclick="openSellerLogin()" style="padding:10px 16px;font-size:0.9rem;">
+                            <i class="fas fa-sign-in-alt"></i> Seller Login
+                        </button>
+                        <button id="sellerDashboardBtn" class="btn btn-seller" onclick="openSellerDashboard()" style="display:none;padding:10px 16px;font-size:0.9rem;background:#8B5CF6;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;">
+                            <i class="fas fa-chart-line"></i> My Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+                <div class="nav-actions">
+                    <button id="adminNavBtn" class="btn btn-outline" onclick="openAdminPanel()" style="position:relative;padding:8px 16px;font-size:0.9rem;margin-right:8px;display:none;">
+                        <i class="fas fa-cog"></i> Admin
+                    </button>
+                    <button id="ordersNavBtn" class="btn btn-outline" onclick="openOrdersModal()" style="position:relative;padding:8px 16px;font-size:0.9rem;margin-right:8px;display:none;">
+                        <i class="fas fa-clipboard-list"></i> My Orders
+                    </button>
+                    <button id="cartNavBtn" class="btn btn-outline" onclick="openCartModal()" style="position:relative;padding:8px 16px;font-size:0.9rem;margin-right:8px;">
+                        <i class="fas fa-shopping-cart"></i> Cart 
+                        <span id="cartCount" style="background:#FF6B35;color:#fff;border-radius:50%;padding:1px 7px;font-size:0.75rem;display:none;">0</span>
+                    </button>
+                    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+        </nav>
+    </header>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-bg"><div class="hero-pattern"></div></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <span class="hero-badge">🔥 <span id="offerCountdown"></span></span>
+                <h1 class="hero-title">Delicious Food <br>Delivered <span class="highlight">Hot & Fresh</span></h1>
+                <p class="hero-subtitle">From local restaurants to your doorstep. Order your favorite meals with FoodieHub and savor every bite.</p>
+                <div class="hero-search">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search restaurants or food items..." autocomplete="off">
+                    </div>
+                    <button class="btn btn-primary btn-lg" onclick="document.querySelector('#menu').scrollIntoView({behavior:'smooth'})">
+                        Order Now <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat"><span class="num" data-target="500">0</span><span>+</span><p>Restaurants</p></div>
+                    <div class="hero-stat"><span class="num" data-target="50">0</span><span>K+</span><p>Happy Customers</p></div>
+                    <div class="hero-stat"><span class="num" data-target="100">0</span><span>K+</span><p>Orders Delivered</p></div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-img-wrapper">
+                    <div class="hero-img-card">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Delicious food platter">
+                    </div>
+                    <div class="hero-badge-card card-1"><i class="fas fa-star"></i><div><strong>4.9</strong><span>Rating</span></div></div>
+                    <div class="hero-badge-card card-2"><i class="fas fa-clock"></i><div><strong>25</strong><span>Min</span></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,50 C360,100 1080,0 1440,50 L1440,100 L0,100 Z" fill="var(--bg-primary)"></path></svg></div>
+    </section>
+
+    <!-- ============ STATISTICS SECTION ============ -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card"><i class="fas fa-store"></i><h3><span class="num" data-target="500">0</span>+</h3><p>Restaurant Partners</p></div>
+                <div class="stat-card"><i class="fas fa-smile"></i><h3><span class="num" data-target="50">0</span>K+</h3><p>Happy Customers</p></div>
+                <div class="stat-card"><i class="fas fa-truck"></i><h3><span class="num" data-target="100">0</span>K+</h3><p>Orders Delivered</p></div>
+                <div class="stat-card"><i class="fas fa-utensils"></i><h3><span class="num" data-target="1000">0</span>+</h3><p>Dish Varieties</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CATEGORIES SECTION ============ -->
+    <section class="categories section" id="categories">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Categories</span>
+                <h2 class="section-title">Browse Food <span class="highlight">Categories</span></h2>
+                <p class="section-desc">Explore our wide range of food categories and find your favorite cuisine.</p>
+            </div>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-card" data-category="pizza"><div class="category-img"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=80" alt="Pizza"></div><h3>Pizza</h3><p>24+ items</p></div>
+                <div class="category-card" data-category="burger"><div class="category-img"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&q=80" alt="Burger"></div><h3>Burger</h3><p>18+ items</p></div>
+                <div class="category-card" data-category="biryani"><div class="category-img"><img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&q=80" alt="Biryani"></div><h3>Biryani</h3><p>15+ items</p></div>
+                <div class="category-card" data-category="chinese"><div class="category-img"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=300&q=80" alt="Chinese"></div><h3>Chinese</h3><p>20+ items</p></div>
+                <div class="category-card" data-category="desserts"><div class="category-img"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=300&q=80" alt="Desserts"></div><h3>Desserts</h3><p>12+ items</p></div>
+                <div class="category-card" data-category="drinks"><div class="category-img"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=300&q=80" alt="Drinks"></div><h3>Drinks</h3><p>22+ items</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ OFFERS SECTION ============ -->
+    <section class="offers section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Offers</span>
+                <h2 class="section-title">Featured <span class="highlight">Deals</span></h2>
+                <p class="section-desc">Don't miss out on these exclusive offers and discounts.</p>
+            </div>
+            <div class="offers-grid">
+                <div class="offer-card offer-primary"><div class="offer-content"><span class="offer-discount">50% OFF</span><h3>First Order</h3><p>Get 50% off on your first order above ₹199</p><a href="#" class="offer-cta">Order Now <i class="fas fa-arrow-right"></i></a></div><div class="offer-icon"><i class="fas fa-gift"></i></div></div>
+                <div class="offer-card offer-secondary"><div class="offer-content"><span class="offer-discount">Free Delivery</span><h3>Weekend Special</h3><p>Free delivery on all orders this weekend. Use code: WEEKEND</p><a href="#" class="offer-cta">Order Now <i class="fas fa-arrow-right"></i></a></div><div class="offer-icon"><i class="fas fa-truck"></i></div></div>
+                <div class="offer-card offer-accent"><div class="offer-content"><span class="offer-discount">₹100 OFF</span><h3>Family Pack</h3><p>Get ₹100 off on orders above ₹499. Use code: FAMILY100</p><a href="#" class="offer-cta">Order Now <i class="fas fa-arrow-right"></i></a></div><div class="offer-icon"><i class="fas fa-users"></i></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ RESTAURANTS SECTION ============ -->
+    <section class="restaurants section" id="restaurants">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Restaurants</span>
+                <h2 class="section-title">Top <span class="highlight">Restaurants</span> Near You</h2>
+                <p class="section-desc">Discover the best restaurants in your area with ratings and reviews.</p>
+            </div>
+            <div class="filter-bar" id="filterBar">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="pizza">Pizza</button>
+                <button class="filter-btn" data-filter="burger">Burger</button>
+                <button class="filter-btn" data-filter="biryani">Biryani</button>
+                <button class="filter-btn" data-filter="chinese">Chinese</button>
+                <button class="filter-btn" data-filter="desserts">Desserts</button>
+            </div>
+            <div class="restaurants-grid" id="restaurantsGrid"></div>
+        </div>
+    </section>
+
+    <!-- ============ POPULAR DISHES / MENU SECTION ============ -->
+    <section class="menu-section section" id="menu">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Menu</span>
+                <h2 class="section-title">Popular <span class="highlight">Dishes</span></h2>
+                <p class="section-desc">Check out our most popular dishes loved by customers.</p>
+            </div>
+            <div class="menu-grid" id="menuGrid"></div>
+        </div>
+    </section>
+
+    <!-- ============ FOOD GALLERY ============ -->
+    <section class="gallery section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Gallery</span>
+                <h2 class="section-title">Our Food <span class="highlight">Gallery</span></h2>
+                <p class="section-desc">A visual journey through our delicious offerings.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&q=80" alt="Food 1"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80" alt="Food 2"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80" alt="Food 3"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&q=80" alt="Food 4"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400&q=80" alt="Food 5"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=400&q=80" alt="Food 6"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=400&q=80" alt="Food 7"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Food 8"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ ORDER TRACKING UI ============ -->
+    <section class="tracking section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Tracking</span>
+                <h2 class="section-title">Track Your <span class="highlight">Order</span></h2>
+                <p class="section-desc">Enter your order ID to track your delivery in real-time.</p>
+            </div>
+            <div class="tracking-container">
+                <div class="tracking-form">
+                    <div class="tracking-input-group">
+                        <i class="fas fa-receipt"></i>
+                        <input type="text" id="orderId" placeholder="Enter your Order ID (e.g., FH12345)" autocomplete="off">
+                        <button class="btn btn-primary" onclick="trackOrder()">Track <i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="tracking-status" id="trackingStatus">
+                    <div class="tracking-steps">
+                        <div class="track-step active" data-step="1"><div class="step-icon"><i class="fas fa-check"></i></div><span>Order Placed</span></div>
+                        <div class="track-step" data-step="2"><div class="step-icon"><i class="fas fa-cog"></i></div><span>Preparing</span></div>
+                        <div class="track-step" data-step="3"><div class="step-icon"><i class="fas fa-truck"></i></div><span>On The Way</span></div>
+                        <div class="track-step" data-step="4"><div class="step-icon"><i class="fas fa-home"></i></div><span>Delivered</span></div>
+                    </div>
+                    <div class="tracking-progress"><div class="progress-bar" id="progressBar"></div></div>
+                    <p class="tracking-message" id="trackingMsg">Enter an order ID to track your order status.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FAQ SECTION ============ -->
+    <section class="faq section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">FAQ</span>
+                <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
+                <p class="section-desc">Find answers to common questions about our service.</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item"><div class="faq-question"><h3>How do I place an order?</h3><span class="faq-toggle"><i class="fas fa-plus"></i></span></div><div class="faq-answer"><p>Simply browse through our restaurant listings, select your favorite dishes, add them to cart, and proceed to checkout.</p></div></div>
+                <div class="faq-item"><div class="faq-question"><h3>What is the delivery time?</h3><span class="faq-toggle"><i class="fas fa-plus"></i></span></div><div class="faq-answer"><p>Delivery times vary by restaurant, but most orders are delivered within 25-35 minutes.</p></div></div>
+                <div class="faq-item"><div class="faq-question"><h3>What payment methods are accepted?</h3><span class="faq-toggle"><i class="fas fa-plus"></i></span></div><div class="faq-answer"><p>We accept UPI, Credit/Debit Cards, Net Banking, and Cash on Delivery.</p></div></div>
+                <div class="faq-item"><div class="faq-question"><h3>Can I track my order?</h3><span class="faq-toggle"><i class="fas fa-plus"></i></span></div><div class="faq-answer"><p>Yes! Use the Order Tracking section above with your Order ID to track in real-time.</p></div></div>
+                <div class="faq-item"><div class="faq-question"><h3>Is there a minimum order value?</h3><span class="faq-toggle"><i class="fas fa-plus"></i></span></div><div class="faq-answer"><p>Minimum order values vary by restaurant but typically range from ₹99 to ₹199.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ ABOUT SECTION ============ -->
+    <section class="about section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <div class="about-img-card"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500&q=80" alt="About FoodieHub"></div>
+                    <div class="about-experience"><span class="exp-number">5+</span><p>Years of <br>Excellence</p></div>
+                </div>
+                <div class="about-content">
+                    <span class="section-tag">About Us</span>
+                    <h2 class="section-title">Why Choose <span class="highlight">FoodieHub</span>?</h2>
+                    <p class="about-text">FoodieHub is your ultimate destination for delicious food delivered fresh and hot to your doorstep. We partner with the best restaurants in your area to bring you an unparalleled dining experience at home.</p>
+                    <div class="about-features">
+                        <div class="about-feature"><i class="fas fa-check-circle"></i><div><h4>Fresh & Quality Food</h4><p>We ensure the highest quality ingredients and preparation standards.</p></div></div>
+                        <div class="about-feature"><i class="fas fa-clock"></i><div><h4>Fast Delivery</h4><p>Quick delivery within 25-35 minutes guaranteed.</p></div></div>
+                        <div class="about-feature"><i class="fas fa-headset"></i><div><h4>24/7 Support</h4><p>Our support team is always available to help you.</p></div></div>
+                        <div class="about-feature"><i class="fas fa-shield-alt"></i><div><h4>Safe & Secure</h4><p>Secure payments and your data privacy is our priority.</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CTA SECTION ============ -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Satisfy Your <span class="highlight">Cravings</span>?</h2>
+                <p>Join thousands of happy customers and get your favorite food delivered in minutes!</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary btn-lg" onclick="document.querySelector('#menu').scrollIntoView({behavior:'smooth'})">Order Now <i class="fas fa-arrow-right"></i></button>
+                    <button class="btn btn-outline btn-lg">Download App <i class="fas fa-download"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CONTACT SECTION ============ -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Contact</span>
+                <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
+                <p class="section-desc">Have a question or feedback? We'd love to hear from you.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-card"><i class="fas fa-map-marker-alt"></i><h4>Our Location</h4><p>Atal Path, Mehshat Nagar, Patna, Bihar</p></div>
+                    <div class="contact-card"><i class="fas fa-phone-alt"></i><h4>Phone Number</h4><p>+91 9801887253</p></div>
+                    <div class="contact-card"><i class="fas fa-envelope"></i><h4>Email Address</h4><p>kumaribhumi433@gmail.com</p></div>
+                    <div class="contact-card"><i class="fas fa-clock"></i><h4>Working Hours</h4><p>Mon - Sun: 8:00 AM - 11:00 PM</p></div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row"><div class="form-group"><label for="formName">Your Name</label><input type="text" id="formName" placeholder="Enter your name" required></div><div class="form-group"><label for="formEmail">Your Email</label><input type="email" id="formEmail" placeholder="Enter your email" required></div></div>
+                    <div class="form-group"><label for="formPhone">Phone Number</label><input type="tel" id="formPhone" placeholder="Enter your phone number" required></div>
+                    <div class="form-group"><label for="formMessage">Your Message</label><textarea id="formMessage" rows="5" placeholder="Write your message here..." required></textarea></div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="nav-logo"><i class="fas fa-utensils"></i> <span>Foodie<span class="highlight">Hub</span></span></a>
+                    <p>Your favorite food delivery platform. Order delicious meals from top restaurants near you.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links"><h4>Quick Links</h4><ul><li><a href="#home">Home</a></li><li><a href="#restaurants">Restaurants</a></li><li><a href="#menu">Menu</a></li><li><a href="#about">About Us</a></li><li><a href="#contact">Contact</a></li></ul></div>
+                <div class="footer-links"><h4>Popular Cuisines</h4><ul><li><a href="#">Pizza</a></li><li><a href="#">Burger</a></li><li><a href="#">Biryani</a></li><li><a href="#">Chinese</a></li><li><a href="#">Desserts</a></li></ul></div>
+                <div class="footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to get special offers and updates.</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 <strong>FoodieHub</strong>. All rights reserved. Made with <i class="fas fa-heart" style="color:#FF6B35;"></i> by Bhumi Kumari</p></div>
+        </div>
+    </footer>
+
+    <!-- ============ LOGIN MODAL ============ -->
+    <div class="modal-overlay" id="loginModal"><div class="modal"><button class="modal-close" id="loginModalClose">&times;</button><div class="modal-header"><i class="fas fa-utensils"></i><h2>Welcome Back</h2><p>Log in to your FoodieHub account</p></div><form class="modal-form" id="loginForm"><div class="form-group"><label for="loginEmail">Email</label><input type="email" id="loginEmail" placeholder="Enter your email" required></div><div class="form-group"><label for="loginPassword">Password</label><input type="password" id="loginPassword" placeholder="Enter your password" required></div><button type="submit" class="btn btn-primary btn-block">Log In</button></form><p class="modal-footer-text">Don't have an account? <a href="#" id="switchToSignup">Sign Up</a></p></div></div>
+
+    <!-- ============ SIGNUP MODAL ============ -->
+    <div class="modal-overlay" id="signupModal"><div class="modal"><button class="modal-close" id="signupModalClose">&times;</button><div class="modal-header"><i class="fas fa-utensils"></i><h2>Create Account</h2><p>Join FoodieHub today</p></div><form class="modal-form" id="signupForm"><div class="form-group"><label for="signupName">Full Name</label><input type="text" id="signupName" placeholder="Enter your full name" required></div><div class="form-group"><label for="signupEmail">Email</label><input type="email" id="signupEmail" placeholder="Enter your email" required></div><div class="form-group"><label for="signupPassword">Password</label><input type="password" id="signupPassword" placeholder="Create a password" required></div><div class="form-group"><label for="signupConfirm">Confirm Password</label><input type="password" id="signupConfirm" placeholder="Confirm your password" required></div><button type="submit" class="btn btn-primary btn-block">Create Account</button></form><p class="modal-footer-text">Already have an account? <a href="#" id="switchToLogin">Log In</a></p></div></div>
+
+    <!-- ============ CART DRAWER ============ -->
+    <div class="modal-overlay" id="cartModal"><div class="modal modal-lg"><button class="modal-close" id="cartModalClose">&times;</button><div class="modal-header"><i class="fas fa-shopping-cart"></i><h2>Your Cart</h2><p id="cartTotal">Total: ₹0</p></div><div id="cartItems" class="cart-items-modal"></div><div style="padding:20px 0;"><button class="btn btn-primary btn-block" id="checkoutBtn" onclick="openCheckout()">Proceed to Checkout <i class="fas fa-arrow-right"></i></button></div></div></div>
+
+    <!-- ============ MY ORDERS MODAL ============ -->
+    <div class="modal-overlay" id="ordersModal"><div class="modal modal-lg"><button class="modal-close" id="ordersModalClose">&times;</button><div class="modal-header"><i class="fas fa-clipboard-list"></i><h2>My Orders</h2></div><div id="ordersContainer" class="cart-items-modal" style="max-height:60vh;overflow-y:auto;"><p style="text-align:center;padding:40px;color:#999;">No orders yet.</p></div></div></div>
+
+    <!-- ============ ADMIN PANEL MODAL ============ -->
+    <div class="modal-overlay" id="adminModal"><div class="modal modal-lg" style="max-width:700px;"><button class="modal-close" id="adminModalClose">&times;</button><div class="modal-header"><i class="fas fa-cog"></i><h2>Admin Panel - Order Management</h2><p>View all customer orders and update status</p></div><div id="adminOrdersContainer" style="max-height:65vh;overflow-y:auto;padding:0 0 20px;"><p style="text-align:center;padding:40px;color:#999;">Loading orders...</p></div></div></div>
+
+    <!-- ============ SELLER DASHBOARD MODAL ============ -->
+    <div class="modal-overlay" id="sellerDashboardModal"><div class="modal modal-lg" style="max-width:750px;"><button class="modal-close" id="sellerDashboardClose">&times;</button><div class="modal-header"><i class="fas fa-store-alt" style="color:#8B5CF6;"></i><h2>Seller Dashboard</h2><p id="sellerDashboardTitle">Manage your restaurant</p></div><div id="sellerDashboardContainer" style="max-height:70vh;overflow-y:auto;padding:0 0 20px;"><p style="text-align:center;padding:40px;color:#999;">Loading dashboard...</p></div></div></div>
+
+    <!-- ============ OTP VERIFICATION MODAL ============ -->
+    <div class="modal-overlay" id="otpModal"><div class="modal" style="max-width:400px;"><button class="modal-close" id="otpModalClose">&times;</button><div class="modal-header"><i class="fas fa-key"></i><h2>OTP Verification</h2><p>Enter the OTP to confirm delivery</p></div><div style="padding:0 0 20px;"><div style="text-align:center;margin-bottom:20px;"><i class="fas fa-truck" style="font-size:3rem;color:#10b981;margin-bottom:10px;"></i><p style="color:#666;font-size:0.95rem;">Order is Out for Delivery. Please provide the OTP to complete delivery.</p></div><div class="form-group"><label for="otpInput">Enter OTP</label><input type="text" id="otpInput" placeholder="Enter 4-digit OTP" maxlength="4" style="width:100%;padding:14px 18px;border:2px solid #eee;border-radius:8px;font-size:1.2rem;text-align:center;letter-spacing:8px;font-weight:700;"></div><input type="hidden" id="otpOrderId"><button class="btn btn-primary btn-lg btn-block" onclick="verifyOTP()" style="margin-top:15px;"><i class="fas fa-check-circle"></i> Confirm Delivery</button></div></div></div>
+
+    <!-- ============ TOAST ============ -->
+    <div id="toast" class="toast"><span id="toastIcon" class="toast-icon"><i class="fas fa-check-circle"></i></span><span id="toastMessage">Success!</span></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
